@@ -12,7 +12,17 @@
     "angular-material": "^1.1.4",
     "angular-ui-router": "1.0.0-beta.3",
     "underscore": "^1.8.3",
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp": "github:gulpjs/gulp#4ed9a4a3275559c73a396eff7e1fde3824951ebb",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-angular-templatecache": "^2.0.0",
+    "gulp-filter": "^5.0.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-hub": "frankwallis/gulp-hub#d461b9c700df9010d0a8694e4af1fb96d9f38bf4",
+    "gulp-insert": "^0.5.0",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-util": "^3.0.8"
   },
   "devDependencies": {
     "@types/angular": "^1.6.6",
