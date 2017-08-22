@@ -1,0 +1,76 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700|Roboto:400,700,700italic,400italic);
+
+@import url('../node_modules/angular-material/angular-material.min.css');
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+html {
+  font-family: 'Roboto', serif;
+}
+
+[layout=row] {
+  flex-direction: row;
+}
+
+header {
+  md-toolbar {
+    padding: 0 20px;
+  }
+}
+
+#list {
+  md-virtual-repeat-container {
+    height: calc(100vh - 77px);
+
+    md-list-item {
+      padding: 20px;
+      border-bottom: 1px solid #efefef;
+
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
+      }
+
+      .author-name {
+        font-size: 14px;
+        color: #777777;
+        width: 100%;
+        text-align: center;
+        margin-top: 5px;
+      }
+
+      .message-content {
+        color: #555555;
+        padding: 0 20px;
+      }
+
+      .message-date {
+        color: #777777;
+      }
+    }
+  }
+}

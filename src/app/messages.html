@@ -1,0 +1,18 @@
+<md-content id="list">
+  <md-content layout="column">
+    <md-virtual-repeat-container id="vertical-container" flex>
+      <md-list>
+        <md-list-item md-item-size="88" md-virtual-repeat="message in $ctrl.dynamicItems" md-on-demand class="repeated-item" flex layout="row">
+          <div flex="10">
+            <div layout="column">
+              <img hide-xs ng-src="http://message-list.appspot.com/{{message.author.photoUrl}}" />
+              <span hide-xs class="author-name">{{message.author.name}}</span>
+            </div>
+          </div>
+          <span flex="80" class="message-content">{{message.content}}</span>
+          <span flex="10" class="message-date">{{message.updated | date}}</span>
+        </md-list-item>
+      </md-list>
+    </md-virtual-repeat-container>
+  </md-content>
+</md-content>
