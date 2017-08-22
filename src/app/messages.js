@@ -3,60 +3,55 @@
 var _ = require('underscore');
 module.exports = {
   template: require('./messages.html'),
-  controller: function ($http, $log) {
+  controller: function ($http) {
     var vm = this;
     var pt = null;
-    var h = angular.element('md-virtual-repeat-container')[0].offsetHeight;
-    var tl = h/88;
+    var items = [];
 
-    var DynamicItems = function() {
-      this.loadedPages = {};
+    vm.infiniteItems = {
+      numLoaded_: 0,
+      toLoad_: 0,
 
-      this.numItems = Math.floor(tl);
+      getItemAtIndex: function(index) {
+        if (index > this.numLoaded_) {
+          this.fetchMoreItems_(index);
+          return null;
+        }
 
-      this.PAGE_SIZE = Math.floor(tl);
+        return items[index];
+      },
 
-      this.numLoaded_ = 0;
-    };
+      getLength: function() {
+        return this.numLoaded_ + 5;
+      },
 
-    DynamicItems.prototype.getItemAtIndex = function(index) {
-      var pageNumber = Math.floor(index / this.PAGE_SIZE);
-      var page = this.loadedPages[pageNumber];
-      $log.log(page);
-
-      if (page) {
-        return page[index % this.PAGE_SIZE];
-      } else if (page !== null) {
-        this.fetchPage_(pageNumber);
+      fetchMoreItems_: function(index) {
+        if (this.toLoad_ < index) {
+          var that = this;
+          this.toLoad_ += 20;
+          $http({
+            url: 'http://message-list.appspot.com/messages',
+            method: 'GET',
+            params: {
+              limit: 20,
+              pageToken: pt
+            }
+          }).then(function(res) {
+            _.each(_.sortBy(res.data.messages, 'id'), function(m) {
+              items.push(m)
+            });
+            that.numLoaded_ = that.toLoad_;
+            pt = res.data.pageToken;
+          });
+        }
       }
     };
 
-    DynamicItems.prototype.getLength = function() {
-      return this.numItems;
-    };
-
-    DynamicItems.prototype.fetchPage_ = function(pageNumber) {
-      this.loadedPages[pageNumber] = null;
-      var that = this;
-
-      $http({
-        url: 'http://message-list.appspot.com/messages',
-        method: 'GET',
-        params: {
-          limit: this.PAGE_SIZE,
-          pageToken: pt
-        }
-      }).then(function(res) {
-        that.loadedPages[pageNumber] = [];
-        _.each(_.sortBy(res.data.messages, 'id'), function(m) {
-          $log.log(m);
-          that.loadedPages[pageNumber].push(m)
-        });
-        that.numLoaded_ = that.toLoad_;
-        pt = res.data.pageToken;
+    vm.removeMessage = function(message) {
+      var i = _.findIndex(items, function(t) {
+        return t.id === message.id;
       });
+      items.splice(i, 1);
     };
-
-    vm.dynamicItems = new DynamicItems();
   }
 };

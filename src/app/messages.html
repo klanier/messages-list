@@ -2,15 +2,16 @@
   <md-content layout="column">
     <md-virtual-repeat-container id="vertical-container" flex>
       <md-list>
-        <md-list-item md-item-size="88" md-virtual-repeat="message in $ctrl.dynamicItems" md-on-demand class="repeated-item" flex layout="row">
-          <div flex="10">
-            <div layout="column">
+        <md-list-item md-virtual-repeat="message in $ctrl.infiniteItems" md-swipe-right="$ctrl.removeMessage(message)" md-on-demand class="repeated-item" layout="column">
+          <div class="details" flex="100" layout="row" layout-align="start center">
+            <div layout="row" layout-align="start center" flex="70">
               <img hide-xs ng-src="http://message-list.appspot.com/{{message.author.photoUrl}}" />
-              <span hide-xs class="author-name">{{message.author.name}}</span>
+              <h3 class="author-name">{{message.author.name}}</h3>
             </div>
+            <span flex></span>
+            <span class="message-date" flex="30">{{message.updated | date}}</span>
           </div>
-          <span flex="80" class="message-content">{{message.content}}</span>
-          <span flex="10" class="message-date">{{message.updated | date}}</span>
+          <span class="message-content">{{message.content}}</span>
         </md-list-item>
       </md-list>
     </md-virtual-repeat-container>
