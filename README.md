@@ -3,6 +3,7 @@ an infinitely scrolling list of messages with a fixed header, author information
 
 ## introduction
 ![gif of messages list and features](./messages-app-responsive.gif)
+a hosted version can be found [here](http://www.thekatielanier.com)
 
 this messages app loads an almost infinite set of messages, organized chronologically.
 while a lengthy list can often be problematic when it comes to performance, especially on a mobile device, i've implemented a windowed scrollable view (using angular material's virtual list) to cut down on the overhead of rendering hundreds or thousands of items at once.
